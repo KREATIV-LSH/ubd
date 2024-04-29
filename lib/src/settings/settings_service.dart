@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class SettingsService {
@@ -6,7 +8,13 @@ class SettingsService {
   Future<void> updateThemeMode(ThemeMode theme) async {
   }
 
-  Future<String> language() async => 'en';
+  Future<String> language() {
+    if(window.locale.toLanguageTag().startsWith('de')) {
+      return Future.value('de');
+    } else {
+      return Future.value('en');
+    }
+  }
 
   Future<void> updateLanguage(String language) async {
   }

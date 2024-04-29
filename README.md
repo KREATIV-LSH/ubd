@@ -5,6 +5,8 @@ A new Flutter project.
 history
 retour rechnen
 
+error on windows native (check screenshots)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application that follows the

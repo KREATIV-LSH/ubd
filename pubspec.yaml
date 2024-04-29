@@ -1,5 +1,5 @@
 name: ubd
-description: "A new Flutter project."
+description: "Uran Blei Datierungs Rechner"
 
 # Prevent accidental publishing to pub.dev.
 publish_to: 'none'

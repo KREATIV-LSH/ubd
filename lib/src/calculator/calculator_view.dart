@@ -49,6 +49,7 @@ class _CalculatorViewState extends State<CalculatorView> {
               });
             },
             items: <String>[
+              AppLocalizations.of(context)!.uraniumPercentageMethod,
               "U-Radium, 238U -> 206Pb",
               "U-Actinum, 235U -> 207Pb",
               AppLocalizations.of(context)!.ratioMethod
@@ -89,11 +90,14 @@ class _CalculatorViewState extends State<CalculatorView> {
                             }),
                           ],
                         ))),
-                Expanded(
+                Visibility(
+                  visible: dropdownValue != null &&
+                      dropdownValue !=
+                          AppLocalizations.of(context)!.uraniumPercentageMethod,
+                  child: Expanded(
                     child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: TextField(
-                          enabled: dropdownValue != null,
                           decoration: InputDecoration(
                             labelText:
                                 AppLocalizations.of(context)!.leadConcentration,
@@ -112,76 +116,95 @@ class _CalculatorViewState extends State<CalculatorView> {
                                       : newValue;
                             }),
                           ],
-                        ))),
+                        )),
+                  ),
+                ),
               ],
             ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.1),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: TextField(
-                          enabled: dropdownValue ==
-                              AppLocalizations.of(context)!.ratioMethod,
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!
-                                .uraniumConcentration,
-                          ),
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r"[0-9.]")),
-                            TextInputFormatter.withFunction(
-                                (oldValue, newValue) {
-                              final text = newValue.text;
-                              return text.isEmpty
-                                  ? newValue
-                                  : double.tryParse(text) == null
-                                      ? oldValue
-                                      : newValue;
-                            }),
-                          ],
-                        ))),
-                Expanded(
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: TextField(
-                          enabled: dropdownValue ==
-                              AppLocalizations.of(context)!.ratioMethod,
-                          decoration: InputDecoration(
-                            labelText:
-                                AppLocalizations.of(context)!.leadConcentration,
-                          ),
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r"[0-9.]")),
-                            TextInputFormatter.withFunction(
-                                (oldValue, newValue) {
-                              final text = newValue.text;
-                              return text.isEmpty
-                                  ? newValue
-                                  : double.tryParse(text) == null
-                                      ? oldValue
-                                      : newValue;
-                            }),
-                          ],
-                        ))),
-              ],
+            child: Visibility(
+              visible:
+                  dropdownValue == AppLocalizations.of(context)!.ratioMethod,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!
+                                  .uraniumConcentration,
+                            ),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r"[0-9.]")),
+                              TextInputFormatter.withFunction(
+                                  (oldValue, newValue) {
+                                final text = newValue.text;
+                                return text.isEmpty
+                                    ? newValue
+                                    : double.tryParse(text) == null
+                                        ? oldValue
+                                        : newValue;
+                              }),
+                            ],
+                          ))),
+                  Expanded(
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              labelText: AppLocalizations.of(context)!
+                                  .leadConcentration,
+                            ),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r"[0-9.]")),
+                              TextInputFormatter.withFunction(
+                                  (oldValue, newValue) {
+                                final text = newValue.text;
+                                return text.isEmpty
+                                    ? newValue
+                                    : double.tryParse(text) == null
+                                        ? oldValue
+                                        : newValue;
+                              }),
+                            ],
+                          ))),
+                ],
+              ),
             ),
           ),
           Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(20.0),
               child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xFF18c95f),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 100, vertical: 25),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onPressed: () {
+                    if(dropdownValue == null) {
+                      return;
+                    }
                     print("Button pressed");
                   },
-                  child: Text(AppLocalizations.of(context)!.calculateButton))),
+                  child: Text(
+                    AppLocalizations.of(context)!.calculateButton,
+                    style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ))),
         ],
       ),
     );

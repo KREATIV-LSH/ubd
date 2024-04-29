@@ -1,31 +1,11 @@
 {
   "appTitle": "Uranium Lead Dating Calculator",
-  "@appTitle": {
-    "description": "The title of the application"
-  },
   "methodPromt": "Decay Cycle / Method",
-  "@methodPromt": {
-    "description": "The method used to calculate the age of the sample"
-  },
   "methodHint": "Select a method",
-  "@methodHint": {
-    "description": "A hint to help the user select a method"
-  },
   "ratioMethod": "Ratio-Method",
-  "@ratioMethod": {
-    "description": "Specific method used to calculate the age of the sample"
-  },
   "uraniumConcentration": "Uranium Concentration",
-  "@uraniumConcentration": {
-    "description": "The concentration of Uranium in the sample"
-  },
   "leadConcentration": "Lead Concentration",
-  "@leadConcentration": {
-    "description": "The concentration of Lead in the sample"
-  },
   "calculateButton": "Calculate",
-  "@calculateButton": {
-    "description": "Button to calculate the age of the sample"
-  },
-  "settingTitle": "Settings"
+  "settingTitle": "Settings",
+  "uraniumPercentageMethod": "Uranium Percentage Method"
 }
