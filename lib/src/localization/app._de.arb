@@ -1,0 +1,35 @@
+{
+    "appTitle": "Uran Blei Datierung",
+    "@appTitle": {
+      "description": "The title of the application"
+    },
+    "methodPromt": "Zerfalssreihe / Methode",
+    "@methodPromt": {
+      "description": "The method used to calculate the age of the sample"
+    },
+    "methodHint": "Bitte auswählen..",
+    "@methodHint": {
+      "description": "A hint to help the user select a method"
+    },
+    "ratioMethod": "Verhätnis Methode",
+    "@ratioMethod": {
+      "description": "Specific method used to calculate the age of the sample"
+    },
+    "uraniumConcentration": "Uran Anteil",
+    "@uraniumConcentration": {
+      "description": "The concentration of Uranium in the sample"
+    },
+    "leadConcentration": "Blei Anteil",
+    "@leadConcentration": {
+      "description": "The concentration of Lead in the sample"
+    },
+    "calculateButton": "Berechnen",
+    "@calculateButton": {
+      "description": "Button to calculate the age of the sample"
+    },
+    "settingTitle": "Einestellungen",
+    "@settingTitle": {
+      "description": "Title of the settings section"
+    }
+  }
+  
