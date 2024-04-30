@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ubd/src/calculator/calculator_controller.dart';
 
 import '../settings/settings_view.dart';
 
@@ -17,6 +18,14 @@ class CalculatorView extends StatefulWidget {
 
 class _CalculatorViewState extends State<CalculatorView> {
   String? dropdownValue;
+  String result = "";
+
+  final CalculatorController controller = CalculatorController();
+
+  final TextEditingController t1 = TextEditingController();
+  final TextEditingController t2 = TextEditingController();
+  final TextEditingController t3 = TextEditingController();
+  final TextEditingController t4 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +44,7 @@ class _CalculatorViewState extends State<CalculatorView> {
       body: Column(
         children: [
           Align(
-            alignment: AlignmentDirectional(0, -1),
+            alignment: const AlignmentDirectional(0, -1),
             child: Text(
               AppLocalizations.of(context)!.methodPromt,
             ),
@@ -70,6 +79,7 @@ class _CalculatorViewState extends State<CalculatorView> {
                     child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: TextField(
+                          controller: t1,
                           enabled: dropdownValue != null,
                           decoration: InputDecoration(
                             labelText: AppLocalizations.of(context)!
@@ -98,6 +108,7 @@ class _CalculatorViewState extends State<CalculatorView> {
                     child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: TextField(
+                          controller: t2,
                           decoration: InputDecoration(
                             labelText:
                                 AppLocalizations.of(context)!.leadConcentration,
@@ -135,6 +146,7 @@ class _CalculatorViewState extends State<CalculatorView> {
                       child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: TextField(
+                            controller: t3,
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context)!
                                   .uraniumConcentration,
@@ -158,6 +170,7 @@ class _CalculatorViewState extends State<CalculatorView> {
                       child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: TextField(
+                            controller: t4,
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context)!
                                   .leadConcentration,
@@ -193,10 +206,13 @@ class _CalculatorViewState extends State<CalculatorView> {
                     ),
                   ),
                   onPressed: () {
-                    if(dropdownValue == null) {
+                    if (dropdownValue == null) {
                       return;
                     }
-                    print("Button pressed");
+                    setState(() {
+                    result = controller.calculate(dropdownValue, t1.text, t2.text,
+                        t3.text, t4.text, context);
+                    });
                   },
                   child: Text(
                     AppLocalizations.of(context)!.calculateButton,
@@ -205,6 +221,16 @@ class _CalculatorViewState extends State<CalculatorView> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ))),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Text(
+              result,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
       ),
     );

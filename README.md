@@ -1,11 +1,15 @@
 # ubd
 
 A new Flutter project.
-**Negativ Inputs**
+
+
+**Negativ Inputs** (general input checking)
 history
 retour rechnen
 
 error on windows native (check screenshots)
+
+make it clear what inputs are wanted
 
 ## Getting Started
 

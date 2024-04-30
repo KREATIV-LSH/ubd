@@ -7,5 +7,6 @@
   "leadConcentration": "Lead Concentration",
   "calculateButton": "Calculate",
   "settingTitle": "Settings",
-  "uraniumPercentageMethod": "Uranium Percentage Method"
+  "uraniumPercentageMethod": "Uranium Percentage Method",
+  "result": "Result"
 }
