@@ -2,11 +2,11 @@
     "appTitle": "Uran Blei Datierung",
     "methodPromt": "Zerfalssreihe / Methode",
     "methodHint": "Bitte auswählen...",
-    "ratioMethod": "Verhätnis Methode",
+    "ratioMethod": "Verhältnis Methode",
     "uraniumConcentration": "Uran Anteil",
     "leadConcentration": "Blei Anteil",
     "calculateButton": "Berechnen",
-    "settingTitle": "Einestellungen",
+    "settingTitle": "Einstellungen",
     "uraniumPercentageMethod": "Uran Anteil Methode"
   }
   
