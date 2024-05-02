@@ -8,5 +8,9 @@
   "calculateButton": "Calculate",
   "settingTitle": "Settings",
   "uraniumPercentageMethod": "Uranium Percentage Method",
-  "result": "Result"
+  "result": "Result",
+  "resultInfinity": "0 - Nothing decayed yet",
+  "resultZero": "∞ - Everything decayed",
+  "years": "Years",
+  "resultError": "Error: Invalid input"
 }

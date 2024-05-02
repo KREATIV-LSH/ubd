@@ -8,6 +8,10 @@
     "calculateButton": "Berechnen",
     "settingTitle": "Einstellungen",
     "uraniumPercentageMethod": "Uran Anteil Methode",
-    "result": "Ergebnis"
+    "result": "Ergebnis",
+    "resultInfinity": "0 - Noch nichts zerfallen",
+    "resultZero": "∞ - Alles zerfallen",
+    "years": "Jahre",
+    "resultError": "Fehler: Ungültiger Wert"
   }
   
