@@ -29,11 +29,11 @@ class CalculatorController {
       return AppLocalizations.of(context)!.resultError;
     }
     
-    if (uraniumPercentage > 99.999 && uraniumPercentage <= 100) {
+    if (uraniumPercentage > 99.999) {
        return AppLocalizations.of(context)!.resultInfinity;
     }
 
-    if(uraniumPercentage < 0.000000001) {
+    if(uraniumPercentage < 0.00001) {
       return AppLocalizations.of(context)!.resultZero;
     }
 
