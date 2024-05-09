@@ -7,7 +7,9 @@ A new Flutter project.
 history
 retour rechnen
 clear field on method change
-can't enter decimals on ios
+can't enter decimals on mobile
+calculate on enter (or done button on mobile)
+copy button for results
 
 error on windows native (check screenshots)
 
