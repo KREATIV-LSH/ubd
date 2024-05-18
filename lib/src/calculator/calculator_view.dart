@@ -210,8 +210,8 @@ class _CalculatorViewState extends State<CalculatorView> {
                       return;
                     }
                     setState(() {
-                    result = controller.calculate(dropdownValue, t1.text, t2.text,
-                        t3.text, t4.text, context);
+                      result = controller.calculate(dropdownValue, t1.text,
+                          t2.text, t3.text, t4.text, context);
                     });
                   },
                   child: Text(
