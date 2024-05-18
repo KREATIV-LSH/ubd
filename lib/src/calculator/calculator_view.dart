@@ -85,7 +85,8 @@ class _CalculatorViewState extends State<CalculatorView> {
                             labelText: AppLocalizations.of(context)!
                                 .uraniumConcentration,
                           ),
-                          keyboardType: TextInputType.number,
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true, signed: false),
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(
                                 RegExp(r"[0-9.]")),
@@ -113,7 +114,8 @@ class _CalculatorViewState extends State<CalculatorView> {
                             labelText:
                                 AppLocalizations.of(context)!.leadConcentration,
                           ),
-                          keyboardType: TextInputType.number,
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true, signed: false),
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(
                                 RegExp(r"[0-9.]")),
@@ -151,7 +153,8 @@ class _CalculatorViewState extends State<CalculatorView> {
                               labelText: AppLocalizations.of(context)!
                                   .uraniumConcentration,
                             ),
-                            keyboardType: TextInputType.number,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true, signed: false),
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                   RegExp(r"[0-9.]")),
@@ -175,7 +178,8 @@ class _CalculatorViewState extends State<CalculatorView> {
                               labelText: AppLocalizations.of(context)!
                                   .leadConcentration,
                             ),
-                            keyboardType: TextInputType.number,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true, signed: false),
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                   RegExp(r"[0-9.]")),
@@ -223,12 +227,24 @@ class _CalculatorViewState extends State<CalculatorView> {
                   ))),
           Padding(
             padding: const EdgeInsets.all(20),
-            child: Text(
-              result,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  result,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                if (result.isNotEmpty)
+                  IconButton(
+                    icon: const Icon(Icons.copy),
+                    onPressed: () {
+                      Clipboard.setData(ClipboardData(text: result.substring(2)));
+                    },
+                  ),
+              ],
             ),
           ),
         ],
