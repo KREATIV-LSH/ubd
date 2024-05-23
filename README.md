@@ -16,6 +16,12 @@ change back browser cache ttl on cloudflare
 
 make it clear what inputs are wanted
 
+
+## Feedback
+- Grössere Schrift
+- Mehr Text (Uran Anteil in Prozent:, Berrechnetes Alter der Probe ...)
+- Mehr Desing
+
 ## Getting Started
 
 This project is a starting point for a Flutter application that follows the
