@@ -19,6 +19,7 @@ class CalculatorView extends StatefulWidget {
 class _CalculatorViewState extends State<CalculatorView> {
   String? dropdownValue;
   String result = "";
+  bool isError = false;
 
   final CalculatorController controller = CalculatorController();
 
@@ -31,10 +32,14 @@ class _CalculatorViewState extends State<CalculatorView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.appTitle),
+        title: Text(AppLocalizations.of(context)!.appTitle,
+            style: const TextStyle(fontSize: 35)),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(
+              Icons.settings,
+              size: 35,
+            ),
             onPressed: () {
               Navigator.restorablePushNamed(context, SettingsView.routeName);
             },
@@ -47,11 +52,13 @@ class _CalculatorViewState extends State<CalculatorView> {
             alignment: const AlignmentDirectional(0, -1),
             child: Text(
               AppLocalizations.of(context)!.methodPromt,
+              style: const TextStyle(fontSize: 25),
             ),
           ),
           DropdownButton<String>(
             value: dropdownValue,
-            hint: Text(AppLocalizations.of(context)!.methodHint),
+            hint: Text(AppLocalizations.of(context)!.methodHint,
+                style: const TextStyle(fontSize: 20)),
             onChanged: (String? newValue) {
               setState(() {
                 dropdownValue = newValue;
@@ -65,7 +72,7 @@ class _CalculatorViewState extends State<CalculatorView> {
             ].map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value),
+                child: Text(value, style: const TextStyle(fontSize: 20)),
               );
             }).toList(),
           ),
@@ -83,8 +90,10 @@ class _CalculatorViewState extends State<CalculatorView> {
                           enabled: dropdownValue != null,
                           decoration: InputDecoration(
                             labelText: AppLocalizations.of(context)!
-                                .uraniumConcentration,
+                                .uraniumConcentration + (dropdownValue == AppLocalizations.of(context)!.uraniumPercentageMethod ? " in %" : ""),
+                            labelStyle: const TextStyle(fontSize: 20),
                           ),
+                          style: const TextStyle(fontSize: 20),
                           keyboardType: const TextInputType.numberWithOptions(
                               decimal: true, signed: false),
                           inputFormatters: [
@@ -113,7 +122,9 @@ class _CalculatorViewState extends State<CalculatorView> {
                           decoration: InputDecoration(
                             labelText:
                                 AppLocalizations.of(context)!.leadConcentration,
+                            labelStyle: const TextStyle(fontSize: 20),
                           ),
+                          style: const TextStyle(fontSize: 20),
                           keyboardType: const TextInputType.numberWithOptions(
                               decimal: true, signed: false),
                           inputFormatters: [
@@ -152,7 +163,9 @@ class _CalculatorViewState extends State<CalculatorView> {
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context)!
                                   .uraniumConcentration,
+                              labelStyle: const TextStyle(fontSize: 20),
                             ),
+                            style: const TextStyle(fontSize: 20),
                             keyboardType: const TextInputType.numberWithOptions(
                                 decimal: true, signed: false),
                             inputFormatters: [
@@ -177,7 +190,9 @@ class _CalculatorViewState extends State<CalculatorView> {
                             decoration: InputDecoration(
                               labelText: AppLocalizations.of(context)!
                                   .leadConcentration,
+                              labelStyle: const TextStyle(fontSize: 20),
                             ),
+                            style: const TextStyle(fontSize: 20),
                             keyboardType: const TextInputType.numberWithOptions(
                                 decimal: true, signed: false),
                             inputFormatters: [
@@ -214,34 +229,38 @@ class _CalculatorViewState extends State<CalculatorView> {
                       return;
                     }
                     setState(() {
-                      result = controller.calculate(dropdownValue, t1.text,
+                      var temp = controller.calculate(dropdownValue, t1.text,
                           t2.text, t3.text, t4.text, context);
+                          isError = temp.$1;
+                          result = temp.$2;
                     });
                   },
                   child: Text(
                     AppLocalizations.of(context)!.calculateButton,
                     style: const TextStyle(
-                        fontSize: 20,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ))),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  result,
-                  style: const TextStyle(
-                    fontSize: 20,
+                  result.isEmpty ? "" : isError ? result : AppLocalizations.of(context)!.resultText + result,
+                  style: TextStyle(
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
+                    color: isError ? Colors.red : Theme.of(context).textTheme.titleMedium!.color,
                   ),
                 ),
-                if (result.isNotEmpty)
+                if (result.isNotEmpty && !isError)
                   IconButton(
                     icon: const Icon(Icons.copy),
                     onPressed: () {
-                      Clipboard.setData(ClipboardData(text: result.substring(2)));
+                      Clipboard.setData(
+                          ClipboardData(text: result));
                     },
                   ),
               ],

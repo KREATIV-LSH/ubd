@@ -12,6 +12,8 @@
     "resultInfinity": "0 - Noch nichts zerfallen",
     "resultZero": "∞ - Alles zerfallen",
     "years": "Jahre",
-    "resultError": "Fehler: Ungültiger Wert"
+    "resultError": "Fehler: Ungültiger Wert",
+    "resultText": "Das Alter der Probe beträgt: ",
+    "billion": "Mrd."
   }
   

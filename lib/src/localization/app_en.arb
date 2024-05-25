@@ -12,5 +12,7 @@
   "resultInfinity": "0 - Nothing decayed yet",
   "resultZero": "∞ - Everything decayed",
   "years": "Years",
-  "resultError": "Error: Invalid input"
+  "resultError": "Error: Invalid input",
+  "resultText": "The age of the sample is: ",
+  "billion": "B"
 }
