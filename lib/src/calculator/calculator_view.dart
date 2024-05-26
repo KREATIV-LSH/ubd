@@ -97,16 +97,14 @@ class _CalculatorViewState extends State<CalculatorView> {
                           keyboardType: const TextInputType.numberWithOptions(
                               decimal: true, signed: false),
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r"[0-9.]")),
-                            TextInputFormatter.withFunction(
-                                (oldValue, newValue) {
-                              final text = newValue.text;
+                            FilteringTextInputFormatter.allow(RegExp(r"[0-9.,]")), // Allow commas
+                            TextInputFormatter.withFunction((oldValue, newValue) {
+                              final text = newValue.text.replaceAll(',', '.'); // Replace commas with periods
                               return text.isEmpty
-                                  ? newValue
+                                  ? newValue.copyWith(text: text)
                                   : double.tryParse(text) == null
                                       ? oldValue
-                                      : newValue;
+                                      : newValue.copyWith(text: text);
                             }),
                           ],
                         ))),
@@ -128,16 +126,14 @@ class _CalculatorViewState extends State<CalculatorView> {
                           keyboardType: const TextInputType.numberWithOptions(
                               decimal: true, signed: false),
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r"[0-9.]")),
-                            TextInputFormatter.withFunction(
-                                (oldValue, newValue) {
-                              final text = newValue.text;
+                            FilteringTextInputFormatter.allow(RegExp(r"[0-9.,]")), // Allow commas
+                            TextInputFormatter.withFunction((oldValue, newValue) {
+                              final text = newValue.text.replaceAll(',', '.'); // Replace commas with periods
                               return text.isEmpty
-                                  ? newValue
+                                  ? newValue.copyWith(text: text)
                                   : double.tryParse(text) == null
                                       ? oldValue
-                                      : newValue;
+                                      : newValue.copyWith(text: text);
                             }),
                           ],
                         )),
@@ -169,16 +165,14 @@ class _CalculatorViewState extends State<CalculatorView> {
                             keyboardType: const TextInputType.numberWithOptions(
                                 decimal: true, signed: false),
                             inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r"[0-9.]")),
-                              TextInputFormatter.withFunction(
-                                  (oldValue, newValue) {
-                                final text = newValue.text;
+                              FilteringTextInputFormatter.allow(RegExp(r"[0-9.,]")), // Allow commas
+                              TextInputFormatter.withFunction((oldValue, newValue) {
+                                final text = newValue.text.replaceAll(',', '.'); // Replace commas with periods
                                 return text.isEmpty
-                                    ? newValue
+                                    ? newValue.copyWith(text: text)
                                     : double.tryParse(text) == null
                                         ? oldValue
-                                        : newValue;
+                                        : newValue.copyWith(text: text);
                               }),
                             ],
                           ))),
@@ -196,16 +190,14 @@ class _CalculatorViewState extends State<CalculatorView> {
                             keyboardType: const TextInputType.numberWithOptions(
                                 decimal: true, signed: false),
                             inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r"[0-9.]")),
-                              TextInputFormatter.withFunction(
-                                  (oldValue, newValue) {
-                                final text = newValue.text;
+                              FilteringTextInputFormatter.allow(RegExp(r"[0-9.,]")), // Allow commas
+                              TextInputFormatter.withFunction((oldValue, newValue) {
+                                final text = newValue.text.replaceAll(',', '.'); // Replace commas with periods
                                 return text.isEmpty
-                                    ? newValue
+                                    ? newValue.copyWith(text: text)
                                     : double.tryParse(text) == null
                                         ? oldValue
-                                        : newValue;
+                                        : newValue.copyWith(text: text);
                               }),
                             ],
                           ))),
