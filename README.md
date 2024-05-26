@@ -2,6 +2,7 @@
 
 A new Flutter project.
 
+**Scaling on mobile** (everything is to large)
 
 **Negativ Inputs** (general input checking)
 history
