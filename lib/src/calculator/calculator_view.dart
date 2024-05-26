@@ -219,7 +219,7 @@ class _CalculatorViewState extends State<CalculatorView> {
                   style: TextButton.styleFrom(
                     backgroundColor: const Color(0xFF18c95f),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 100, vertical: 25),
+                        horizontal: 50, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
