@@ -7,9 +7,7 @@ import 'histroy_view.dart';
 import '../settings/settings_view.dart';
 
 class CalculatorView extends StatefulWidget {
-  const CalculatorView({
-    Key? key, required this.controller
-  }) : super(key: key);
+  const CalculatorView({Key? key, required this.controller}) : super(key: key);
 
   static const routeName = '/';
 
@@ -254,8 +252,8 @@ class _CalculatorViewState extends State<CalculatorView> {
                       return;
                     }
                     setState(() {
-                      var temp = widget.controller.calculate(dropdownValue, t1.text,
-                          t2.text, t3.text, t4.text, context);
+                      var temp = widget.controller.calculate(dropdownValue,
+                          t1.text, t2.text, t3.text, t4.text, context);
                       isError = temp.$1;
                       result = temp.$2;
                     });
@@ -272,18 +270,20 @@ class _CalculatorViewState extends State<CalculatorView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  result.isEmpty
-                      ? ""
-                      : isError
-                          ? result
-                          : AppLocalizations.of(context)!.resultText + result,
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: isError
-                        ? Colors.red
-                        : Theme.of(context).textTheme.titleMedium!.color,
+                Flexible(
+                  child: Text(
+                    result.isEmpty
+                        ? ""
+                        : isError
+                            ? result
+                            : AppLocalizations.of(context)!.resultText + result,
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: isError
+                          ? Colors.red
+                          : Theme.of(context).textTheme.titleMedium!.color,
+                    ),
                   ),
                 ),
                 if (result.isNotEmpty && !isError)
