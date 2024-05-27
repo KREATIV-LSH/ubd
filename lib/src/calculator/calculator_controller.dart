@@ -13,7 +13,8 @@ class Calculation {
   String? t4;
   num? result;
 
-  Calculation({this.methodIndex, this.t1, this.t2, this.t3, this.t4, this.result});
+  Calculation(
+      {this.methodIndex, this.t1, this.t2, this.t3, this.t4, this.result});
 }
 
 class CalculatorController {
@@ -25,7 +26,21 @@ class CalculatorController {
     calculations.add(calculation);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList(
-        'calculations', calculations.map((e) => e.methodIndex.toString() + "," + e.t1! + "," + e.t2! + "," + e.t3! + "," + e.t4! + "," + e.result!.toString()).toList());
+        'calculations',
+        calculations
+            .map((e) =>
+                e.methodIndex.toString() +
+                "," +
+                e.t1! +
+                "," +
+                e.t2! +
+                "," +
+                e.t3! +
+                "," +
+                e.t4! +
+                "," +
+                e.result!.toString())
+            .toList());
   }
 
   Future<void> loadHistory() async {
@@ -55,37 +70,39 @@ class CalculatorController {
     calculations.removeAt(index);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList(
-        'calculations', calculations.map((e) => e.methodIndex.toString() + "," + e.t1! + "," + e.t2! + "," + e.t3! + "," + e.t4! + "," + e.result!.toString()).toList());
+        'calculations',
+        calculations
+            .map((e) =>
+                e.methodIndex.toString() +
+                "," +
+                e.t1! +
+                "," +
+                e.t2! +
+                "," +
+                e.t3! +
+                "," +
+                e.t4! +
+                "," +
+                e.result!.toString())
+            .toList());
   }
 
+  // Utils
 
-  // Calculations
-  (bool, String) calculate(String? method, String? t1, String? t2, String? t3,
-      String? t4, BuildContext context) {
-    bool isError = false;
-    String msg = "";
-    num t = 0;
-    if (method == AppLocalizations.of(context)!.uraniumPercentageMethod) {
-      (isError, msg, t) = calculateUraniumPercentage(t1, context);
-    } else if (method == "U-Radium, 238U -> 206Pb") {
-    } else if (method == "U-Actinum, 235U -> 207Pb") {
-    } else if (method == AppLocalizations.of(context)!.ratioMethod) {
-    } else {
-      print("Method not found");
-    }
+  num round(num num, int decimals) =>
+      (num * pow(10, decimals)).round() / pow(10, decimals);
 
-    if(!isError) {
-      Calculation calculation = Calculation(
-          methodIndex: getMethodIndex(method!, context),
-          t1: t1,
-          t2: t2,
-          t3: t3,
-          t4: t4,
-          result: t);
-      addHistory(calculation);
+  String formatNumber(num num, BuildContext context) {
+    if (num > 1e9) {
+      return "${round(num / 1e9, 3)} ${AppLocalizations.of(context)!.billion}";
+    } else if (num > 1e6) {
+      return "${round(num / 1e6, 3)} Mio";
     }
-    return (isError, msg);
+    return num.floor().toString();
   }
+
+  double log10(num x) => log(x) / ln10;
+  double log2(num x) => log(x) / ln2;
 
   int getMethodIndex(String method, BuildContext context) {
     if (method == AppLocalizations.of(context)!.uraniumPercentageMethod) {
@@ -101,9 +118,97 @@ class CalculatorController {
     }
   }
 
-  num tHalf = 4.46 * 10e9;
+  num tHalf = 4.46 * 10e9; // Halbwertszeit von u238 und u235
+  num lambda238 = 1.55125; // Zerfallskonstante von u238
+  num lambda235 = 9.8485; // Zerfallskonstante von u235
 
-  (bool, String, num) calculateUraniumPercentage(String? t1, BuildContext context) {
+  // Calculation
+  (bool, String) calculate(String? method, String? t1, String? t2, String? t3,
+      String? t4, BuildContext context,
+      {bool saveHistory = true}) {
+    bool isError = false;
+    String msg = "";
+    num t = 0;
+    if (method == AppLocalizations.of(context)!.uraniumPercentageMethod) {
+      (isError, msg, t) = calculateUraniumPercentage(t1, context);
+    } else if (method == "U-Radium, 238U -> 206Pb") {
+      (isError, msg, t) = calculateUraniumRadium(t1, t2, context);
+    } else if (method == "U-Actinum, 235U -> 207Pb") {
+    } else if (method == AppLocalizations.of(context)!.ratioMethod) {
+      (isError, msg, t) = calculateRatio(t1, t2, t3, t4, context);
+    } else {
+      print("Method not found");
+    }
+
+    if (!isError && saveHistory) {
+      Calculation calculation = Calculation(
+          methodIndex: getMethodIndex(method!, context),
+          t1: t1,
+          t2: t2,
+          t3: t3,
+          t4: t4,
+          result: t);
+      addHistory(calculation);
+    }
+    return (isError, msg);
+  }
+
+  // Calculations
+
+  // Formula
+  (bool, String, num) calculateRatio(
+      String? t1, String? t2, String? t3, String? t4, BuildContext context) {
+    num u = num.tryParse(t1!)!;
+    num l = num.tryParse(t2!)!;
+    num u2 = num.tryParse(t3!)!;
+    num l2 = num.tryParse(t4!)!;
+
+    if (u == 0 || l == 0 || u2 == 0 || l2 == 0) {
+      return (true, AppLocalizations.of(context)!.resultError, 0);
+    }
+
+    num t = (l * u2 - u * l2) / (l * u2 * pow(e, lambda235 / 1e10) - u * u2 * pow(e, lambda238 / 1e10));
+    print(t);
+    return (false, "≈ ${formatNumber(t, context)}", t);
+  }
+
+  (bool, String, num) calculateUraniumRadium(
+      String? t1, String? t2, BuildContext context) {
+    num uranium = num.tryParse(t1!)!;
+    num lead = num.tryParse(t2!)!;
+
+    if (uranium == 0 || lead == 0) {
+      return (true, AppLocalizations.of(context)!.resultError, 0);
+    }
+
+    num t = 1 / lambda238 * log(1 + (lead / uranium)) * 1e10;
+    print("t: $t lambda: $lambda238");
+    return (
+      false,
+      "≈ ${formatNumber(t, context)} ${AppLocalizations.of(context)!.years}",
+      t
+    );
+  }
+
+  (bool, String, num) calculateUraniumActinum(
+      String? t1, String? t2, BuildContext context) {
+    num uranium = num.tryParse(t1!)!;
+    num lead = num.tryParse(t2!)!;
+
+    if (uranium == 0 || lead == 0) {
+      return (true, AppLocalizations.of(context)!.resultError, 0);
+    }
+
+    num t = 1 / lambda235 * log(1 + (lead / uranium)) * 1e10;
+    return (
+      false,
+      "≈ ${formatNumber(t, context)} ${AppLocalizations.of(context)!.years}",
+      t
+    );
+  }
+
+  (bool, String, num) calculateUraniumPercentage(
+      String? t1, BuildContext context) {
     num uraniumPercentage = num.tryParse(t1!)!;
 
     if (uraniumPercentage > 100) {
@@ -126,19 +231,4 @@ class CalculatorController {
       t
     );
   }
-
-  num round(num num, int decimals) =>
-      (num * pow(10, decimals)).round() / pow(10, decimals);
-
-  String formatNumber(num num, BuildContext context) {
-    if (num > 1e9) {
-      return "${round(num / 1e9, 3)} ${AppLocalizations.of(context)!.billion}";
-    } else if (num > 1e6) {
-      return "${round(num / 1e6, 3)} Mio";
-    }
-    return num.floor().toString();
-  }
-
-  double log10(num x) => log(x) / ln10;
-  double log2(num x) => log(x) / ln2;
 }

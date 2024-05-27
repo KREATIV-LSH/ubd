@@ -7,11 +7,13 @@ import 'histroy_view.dart';
 import '../settings/settings_view.dart';
 
 class CalculatorView extends StatefulWidget {
-  const CalculatorView({Key? key, required this.controller}) : super(key: key);
+  const CalculatorView({Key? key, required this.controller, this.calculation})
+      : super(key: key);
 
   static const routeName = '/';
 
   final CalculatorController controller;
+  final Calculation? calculation;
 
   @override
   _CalculatorViewState createState() => _CalculatorViewState();
@@ -28,12 +30,6 @@ class _CalculatorViewState extends State<CalculatorView> {
   final TextEditingController t4 = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    widget.controller.loadHistory();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +42,28 @@ class _CalculatorViewState extends State<CalculatorView> {
               size: 35,
             ),
             onPressed: () {
-              Navigator.restorablePushNamed(context, HistoryView.routeName);
+              Navigator.pushNamed(context, HistoryView.routeName).then((rtrn) {
+                if (rtrn != null) {
+                  Calculation calculation = rtrn as Calculation;
+                  setState(() {
+                    dropdownValue = <String>[
+                      AppLocalizations.of(context)!.uraniumPercentageMethod,
+                      "U-Radium, 238U -> 206Pb",
+                      "U-Actinum, 235U -> 207Pb",
+                      AppLocalizations.of(context)!.ratioMethod
+                    ][calculation.methodIndex!];
+                    t1.text = calculation.t1 ?? "";
+                    t2.text = calculation.t2 ?? "";
+                    t3.text = calculation.t3 ?? "";
+                    t4.text = calculation.t4 ?? "";
+                    var temp = widget.controller.calculate(dropdownValue,
+                        t1.text, t2.text, t3.text, t4.text, context,
+                        saveHistory: false);
+                    isError = temp.$1;
+                    result = temp.$2;
+                  });
+                }
+              });
             },
           ),
           IconButton(
@@ -76,6 +93,10 @@ class _CalculatorViewState extends State<CalculatorView> {
             onChanged: (String? newValue) {
               setState(() {
                 dropdownValue = newValue;
+                t1.clear();
+                t2.clear();
+                t3.clear();
+                t4.clear();
               });
             },
             items: <String>[

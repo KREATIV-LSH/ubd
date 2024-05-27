@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ubd/src/calculator/calculator_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'calculator_view.dart';
+
 class HistoryView extends StatefulWidget {
   final CalculatorController controller;
 
@@ -38,6 +40,10 @@ class _HistoryViewState extends State<HistoryView> {
               "${widget.controller.formatNumber(calculation.result!, context)} ${AppLocalizations.of(context)!.years}";
           if (calculation.methodIndex == 0) {
             subtitle = "${calculation.t1!}%: $result";
+          } else if (calculation.methodIndex! < 3) {
+            subtitle = "${calculation.t1!}, ${calculation.t2!}: $result";
+          } else {
+            subtitle = "${calculation.t1!} / ${calculation.t3!}, ${calculation.t2!} / ${calculation.t4!}: $result";
           }
           final isHovered = ValueNotifier<bool>(false);
 
@@ -45,6 +51,9 @@ class _HistoryViewState extends State<HistoryView> {
             onHover: (_) => isHovered.value = true,
             onExit: (_) => isHovered.value = false,
             child: ListTile(
+              onTap: () {
+                Navigator.pop(context, calculation); // Return the calculation to the previous screen (CalculatorView)
+              },
               title: Text(<String>[
                 AppLocalizations.of(context)!.uraniumPercentageMethod,
                 "U-Radium, 238U -> 206Pb",
@@ -61,7 +70,8 @@ class _HistoryViewState extends State<HistoryView> {
                       icon: const Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
                         widget.controller.deleteHistory(index);
-                        setState(() {}); // This will trigger a rebuild of the widget
+                        setState(
+                            () {}); // This will trigger a rebuild of the widget
                       },
                     ),
                   );
