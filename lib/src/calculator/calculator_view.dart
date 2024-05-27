@@ -3,14 +3,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ubd/src/calculator/calculator_controller.dart';
 
+import 'histroy_view.dart';
 import '../settings/settings_view.dart';
 
 class CalculatorView extends StatefulWidget {
   const CalculatorView({
-    Key? key,
+    Key? key, required this.controller
   }) : super(key: key);
 
   static const routeName = '/';
+
+  final CalculatorController controller;
 
   @override
   _CalculatorViewState createState() => _CalculatorViewState();
@@ -21,12 +24,16 @@ class _CalculatorViewState extends State<CalculatorView> {
   String result = "";
   bool isError = false;
 
-  final CalculatorController controller = CalculatorController();
-
   final TextEditingController t1 = TextEditingController();
   final TextEditingController t2 = TextEditingController();
   final TextEditingController t3 = TextEditingController();
   final TextEditingController t4 = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.loadHistory();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +42,15 @@ class _CalculatorViewState extends State<CalculatorView> {
         title: Text(AppLocalizations.of(context)!.appTitle,
             style: const TextStyle(fontSize: 35)),
         actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.history,
+              size: 35,
+            ),
+            onPressed: () {
+              Navigator.restorablePushNamed(context, HistoryView.routeName);
+            },
+          ),
           IconButton(
             icon: const Icon(
               Icons.settings,
@@ -90,16 +106,24 @@ class _CalculatorViewState extends State<CalculatorView> {
                           enabled: dropdownValue != null,
                           decoration: InputDecoration(
                             labelText: AppLocalizations.of(context)!
-                                .uraniumConcentration + (dropdownValue == AppLocalizations.of(context)!.uraniumPercentageMethod ? " in %" : ""),
+                                    .uraniumConcentration +
+                                (dropdownValue ==
+                                        AppLocalizations.of(context)!
+                                            .uraniumPercentageMethod
+                                    ? " in %"
+                                    : ""),
                             labelStyle: const TextStyle(fontSize: 20),
                           ),
                           style: const TextStyle(fontSize: 20),
                           keyboardType: const TextInputType.numberWithOptions(
                               decimal: true, signed: false),
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r"[0-9.,]")), // Allow commas
-                            TextInputFormatter.withFunction((oldValue, newValue) {
-                              final text = newValue.text.replaceAll(',', '.'); // Replace commas with periods
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r"[0-9.,]")), // Allow commas
+                            TextInputFormatter.withFunction(
+                                (oldValue, newValue) {
+                              final text = newValue.text.replaceAll(
+                                  ',', '.'); // Replace commas with periods
                               return text.isEmpty
                                   ? newValue.copyWith(text: text)
                                   : double.tryParse(text) == null
@@ -126,9 +150,12 @@ class _CalculatorViewState extends State<CalculatorView> {
                           keyboardType: const TextInputType.numberWithOptions(
                               decimal: true, signed: false),
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp(r"[0-9.,]")), // Allow commas
-                            TextInputFormatter.withFunction((oldValue, newValue) {
-                              final text = newValue.text.replaceAll(',', '.'); // Replace commas with periods
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r"[0-9.,]")), // Allow commas
+                            TextInputFormatter.withFunction(
+                                (oldValue, newValue) {
+                              final text = newValue.text.replaceAll(
+                                  ',', '.'); // Replace commas with periods
                               return text.isEmpty
                                   ? newValue.copyWith(text: text)
                                   : double.tryParse(text) == null
@@ -165,9 +192,12 @@ class _CalculatorViewState extends State<CalculatorView> {
                             keyboardType: const TextInputType.numberWithOptions(
                                 decimal: true, signed: false),
                             inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp(r"[0-9.,]")), // Allow commas
-                              TextInputFormatter.withFunction((oldValue, newValue) {
-                                final text = newValue.text.replaceAll(',', '.'); // Replace commas with periods
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r"[0-9.,]")), // Allow commas
+                              TextInputFormatter.withFunction(
+                                  (oldValue, newValue) {
+                                final text = newValue.text.replaceAll(
+                                    ',', '.'); // Replace commas with periods
                                 return text.isEmpty
                                     ? newValue.copyWith(text: text)
                                     : double.tryParse(text) == null
@@ -190,9 +220,12 @@ class _CalculatorViewState extends State<CalculatorView> {
                             keyboardType: const TextInputType.numberWithOptions(
                                 decimal: true, signed: false),
                             inputFormatters: [
-                              FilteringTextInputFormatter.allow(RegExp(r"[0-9.,]")), // Allow commas
-                              TextInputFormatter.withFunction((oldValue, newValue) {
-                                final text = newValue.text.replaceAll(',', '.'); // Replace commas with periods
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r"[0-9.,]")), // Allow commas
+                              TextInputFormatter.withFunction(
+                                  (oldValue, newValue) {
+                                final text = newValue.text.replaceAll(
+                                    ',', '.'); // Replace commas with periods
                                 return text.isEmpty
                                     ? newValue.copyWith(text: text)
                                     : double.tryParse(text) == null
@@ -221,10 +254,10 @@ class _CalculatorViewState extends State<CalculatorView> {
                       return;
                     }
                     setState(() {
-                      var temp = controller.calculate(dropdownValue, t1.text,
+                      var temp = widget.controller.calculate(dropdownValue, t1.text,
                           t2.text, t3.text, t4.text, context);
-                          isError = temp.$1;
-                          result = temp.$2;
+                      isError = temp.$1;
+                      result = temp.$2;
                     });
                   },
                   child: Text(
@@ -240,19 +273,24 @@ class _CalculatorViewState extends State<CalculatorView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  result.isEmpty ? "" : isError ? result : AppLocalizations.of(context)!.resultText + result,
+                  result.isEmpty
+                      ? ""
+                      : isError
+                          ? result
+                          : AppLocalizations.of(context)!.resultText + result,
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: isError ? Colors.red : Theme.of(context).textTheme.titleMedium!.color,
+                    color: isError
+                        ? Colors.red
+                        : Theme.of(context).textTheme.titleMedium!.color,
                   ),
                 ),
                 if (result.isNotEmpty && !isError)
                   IconButton(
                     icon: const Icon(Icons.copy),
                     onPressed: () {
-                      Clipboard.setData(
-                          ClipboardData(text: result));
+                      Clipboard.setData(ClipboardData(text: result));
                     },
                   ),
               ],

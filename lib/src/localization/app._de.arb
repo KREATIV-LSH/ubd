@@ -14,6 +14,7 @@
     "years": "Jahre",
     "resultError": "Fehler: Ungültiger Wert",
     "resultText": "Das Alter der Probe beträgt: ",
-    "billion": "Mrd."
+    "billion": "Mrd.",
+    "historyTitle": "Verlauf"
   }
   

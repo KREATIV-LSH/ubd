@@ -14,5 +14,6 @@
   "years": "Years",
   "resultError": "Error: Invalid input",
   "resultText": "The age of the sample is: ",
-  "billion": "B"
+  "billion": "B",
+  "historyTitle": "History"
 }

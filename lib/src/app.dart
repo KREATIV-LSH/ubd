@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:ubd/src/calculator/calculator_controller.dart';
 
 import 'calculator/calculator_view.dart';
+import 'calculator/histroy_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
@@ -11,9 +13,11 @@ class MyApp extends StatelessWidget {
   const MyApp({
     super.key,
     required this.settingsController,
+    required this.calculatorController,
   });
 
   final SettingsController settingsController;
+  final CalculatorController calculatorController;
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +73,11 @@ class MyApp extends StatelessWidget {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
+                  case HistoryView.routeName:
+                    return HistoryView(controller: calculatorController);
                   case CalculatorView.routeName:
                   default:
-                    return const CalculatorView();
+                    return CalculatorView(controller: calculatorController);
                 }
               },
             );
