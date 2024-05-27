@@ -26,8 +26,6 @@ class _CalculatorViewState extends State<CalculatorView> {
 
   final TextEditingController t1 = TextEditingController();
   final TextEditingController t2 = TextEditingController();
-  final TextEditingController t3 = TextEditingController();
-  final TextEditingController t4 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +48,11 @@ class _CalculatorViewState extends State<CalculatorView> {
                       AppLocalizations.of(context)!.uraniumPercentageMethod,
                       "U-Radium, 238U -> 206Pb",
                       "U-Actinum, 235U -> 207Pb",
-                      AppLocalizations.of(context)!.ratioMethod
                     ][calculation.methodIndex!];
                     t1.text = calculation.t1 ?? "";
                     t2.text = calculation.t2 ?? "";
-                    t3.text = calculation.t3 ?? "";
-                    t4.text = calculation.t4 ?? "";
                     var temp = widget.controller.calculate(dropdownValue,
-                        t1.text, t2.text, t3.text, t4.text, context,
+                        t1.text, t2.text, context,
                         saveHistory: false);
                     isError = temp.$1;
                     result = temp.$2;
@@ -95,15 +90,12 @@ class _CalculatorViewState extends State<CalculatorView> {
                 dropdownValue = newValue;
                 t1.clear();
                 t2.clear();
-                t3.clear();
-                t4.clear();
               });
             },
             items: <String>[
               AppLocalizations.of(context)!.uraniumPercentageMethod,
               "U-Radium, 238U -> 206Pb",
               "U-Actinum, 235U -> 207Pb",
-              AppLocalizations.of(context)!.ratioMethod
             ].map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -189,75 +181,6 @@ class _CalculatorViewState extends State<CalculatorView> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.1),
-            child: Visibility(
-              visible:
-                  dropdownValue == AppLocalizations.of(context)!.ratioMethod,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                      child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: TextField(
-                            controller: t3,
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!
-                                  .uraniumConcentration,
-                              labelStyle: const TextStyle(fontSize: 20),
-                            ),
-                            style: const TextStyle(fontSize: 20),
-                            keyboardType: const TextInputType.numberWithOptions(
-                                decimal: true, signed: false),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r"[0-9.,]")), // Allow commas
-                              TextInputFormatter.withFunction(
-                                  (oldValue, newValue) {
-                                final text = newValue.text.replaceAll(
-                                    ',', '.'); // Replace commas with periods
-                                return text.isEmpty
-                                    ? newValue.copyWith(text: text)
-                                    : double.tryParse(text) == null
-                                        ? oldValue
-                                        : newValue.copyWith(text: text);
-                              }),
-                            ],
-                          ))),
-                  Expanded(
-                      child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: TextField(
-                            controller: t4,
-                            decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!
-                                  .leadConcentration,
-                              labelStyle: const TextStyle(fontSize: 20),
-                            ),
-                            style: const TextStyle(fontSize: 20),
-                            keyboardType: const TextInputType.numberWithOptions(
-                                decimal: true, signed: false),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r"[0-9.,]")), // Allow commas
-                              TextInputFormatter.withFunction(
-                                  (oldValue, newValue) {
-                                final text = newValue.text.replaceAll(
-                                    ',', '.'); // Replace commas with periods
-                                return text.isEmpty
-                                    ? newValue.copyWith(text: text)
-                                    : double.tryParse(text) == null
-                                        ? oldValue
-                                        : newValue.copyWith(text: text);
-                              }),
-                            ],
-                          ))),
-                ],
-              ),
-            ),
-          ),
-          Padding(
               padding: const EdgeInsets.all(20.0),
               child: TextButton(
                   style: TextButton.styleFrom(
@@ -274,7 +197,7 @@ class _CalculatorViewState extends State<CalculatorView> {
                     }
                     setState(() {
                       var temp = widget.controller.calculate(dropdownValue,
-                          t1.text, t2.text, t3.text, t4.text, context);
+                          t1.text, t2.text, context);
                       isError = temp.$1;
                       result = temp.$2;
                     });

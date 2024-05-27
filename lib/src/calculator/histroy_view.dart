@@ -40,10 +40,8 @@ class _HistoryViewState extends State<HistoryView> {
               "${widget.controller.formatNumber(calculation.result!, context)} ${AppLocalizations.of(context)!.years}";
           if (calculation.methodIndex == 0) {
             subtitle = "${calculation.t1!}%: $result";
-          } else if (calculation.methodIndex! < 3) {
-            subtitle = "${calculation.t1!}, ${calculation.t2!}: $result";
           } else {
-            subtitle = "${calculation.t1!} / ${calculation.t3!}, ${calculation.t2!} / ${calculation.t4!}: $result";
+            subtitle = "${calculation.t1!}, ${calculation.t2!}: $result";
           }
           final isHovered = ValueNotifier<bool>(false);
 
@@ -58,7 +56,6 @@ class _HistoryViewState extends State<HistoryView> {
                 AppLocalizations.of(context)!.uraniumPercentageMethod,
                 "U-Radium, 238U -> 206Pb",
                 "U-Actinum, 235U -> 207Pb",
-                AppLocalizations.of(context)!.ratioMethod
               ][calculation.methodIndex!]),
               subtitle: Text(subtitle),
               trailing: ValueListenableBuilder<bool>(

@@ -9,12 +9,10 @@ class Calculation {
   int? methodIndex;
   String? t1;
   String? t2;
-  String? t3;
-  String? t4;
   num? result;
 
   Calculation(
-      {this.methodIndex, this.t1, this.t2, this.t3, this.t4, this.result});
+      {this.methodIndex, this.t1, this.t2, this.result});
 }
 
 class CalculatorController {
@@ -29,17 +27,7 @@ class CalculatorController {
         'calculations',
         calculations
             .map((e) =>
-                e.methodIndex.toString() +
-                "," +
-                e.t1! +
-                "," +
-                e.t2! +
-                "," +
-                e.t3! +
-                "," +
-                e.t4! +
-                "," +
-                e.result!.toString())
+                "${e.methodIndex},${e.t1!},${e.t2!},${e.result!}")
             .toList());
   }
 
@@ -53,9 +41,7 @@ class CalculatorController {
             methodIndex: int.tryParse(parts[0]),
             t1: parts[1],
             t2: parts[2],
-            t3: parts[3],
-            t4: parts[4],
-            result: num.tryParse(parts[5]));
+            result: num.tryParse(parts[3]));
       }).toList();
     }
   }
@@ -73,17 +59,7 @@ class CalculatorController {
         'calculations',
         calculations
             .map((e) =>
-                e.methodIndex.toString() +
-                "," +
-                e.t1! +
-                "," +
-                e.t2! +
-                "," +
-                e.t3! +
-                "," +
-                e.t4! +
-                "," +
-                e.result!.toString())
+                "${e.methodIndex},${e.t1!},${e.t2!},${e.result!}")
             .toList());
   }
 
@@ -123,9 +99,7 @@ class CalculatorController {
   num lambda235 = 9.8485; // Zerfallskonstante von u235
 
   // Calculation
-  (bool, String) calculate(String? method, String? t1, String? t2, String? t3,
-      String? t4, BuildContext context,
-      {bool saveHistory = true}) {
+  (bool, String) calculate(String? method, String? t1, String? t2, BuildContext context, {bool saveHistory = true}) {
     bool isError = false;
     String msg = "";
     num t = 0;
@@ -134,8 +108,7 @@ class CalculatorController {
     } else if (method == "U-Radium, 238U -> 206Pb") {
       (isError, msg, t) = calculateUraniumRadium(t1, t2, context);
     } else if (method == "U-Actinum, 235U -> 207Pb") {
-    } else if (method == AppLocalizations.of(context)!.ratioMethod) {
-      (isError, msg, t) = calculateRatio(t1, t2, t3, t4, context);
+      (isError, msg, t) = calculateUraniumActinum(t1, t2, context);
     } else {
       print("Method not found");
     }
@@ -145,8 +118,6 @@ class CalculatorController {
           methodIndex: getMethodIndex(method!, context),
           t1: t1,
           t2: t2,
-          t3: t3,
-          t4: t4,
           result: t);
       addHistory(calculation);
     }
@@ -154,23 +125,6 @@ class CalculatorController {
   }
 
   // Calculations
-
-  // Formula
-  (bool, String, num) calculateRatio(
-      String? t1, String? t2, String? t3, String? t4, BuildContext context) {
-    num u = num.tryParse(t1!)!;
-    num l = num.tryParse(t2!)!;
-    num u2 = num.tryParse(t3!)!;
-    num l2 = num.tryParse(t4!)!;
-
-    if (u == 0 || l == 0 || u2 == 0 || l2 == 0) {
-      return (true, AppLocalizations.of(context)!.resultError, 0);
-    }
-
-    num t = (l * u2 - u * l2) / (l * u2 * pow(e, lambda235 / 1e10) - u * u2 * pow(e, lambda238 / 1e10));
-    print(t);
-    return (false, "≈ ${formatNumber(t, context)}", t);
-  }
 
   (bool, String, num) calculateUraniumRadium(
       String? t1, String? t2, BuildContext context) {
