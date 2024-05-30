@@ -3,6 +3,9 @@
 A new Flutter project.
 
 **Scaling on mobile** (everything is to large)
+**History on mobile**
+
+delete button apears on hover (what about mobile?)
 
 **Negativ Inputs** (general input checking)
 history

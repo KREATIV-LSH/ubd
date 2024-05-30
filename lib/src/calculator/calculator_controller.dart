@@ -94,7 +94,7 @@ class CalculatorController {
     }
   }
 
-  num tHalf = 4.46 * 10e9; // Halbwertszeit von u238 und u235
+  num tHalf = 4.46e9; // Halbwertszeit von u238 und u235
   num lambda238 = 1.55125; // Zerfallskonstante von u238
   num lambda235 = 9.8485; // Zerfallskonstante von u235
 
