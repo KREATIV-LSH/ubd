@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ubd/src/calculator/calculator_controller.dart';
 
+import '../misc/info_view.dart';
 import 'histroy_view.dart';
 import '../settings/settings_view.dart';
 
@@ -35,6 +36,12 @@ class _CalculatorViewState extends State<CalculatorView> {
             style: const TextStyle(fontSize: 35)),
         actions: [
           IconButton(
+            icon: const Icon(Icons.info, size: 35),
+            onPressed: () {
+              Navigator.pushNamed(context, InfoView.routeName);
+            },
+          ),
+          IconButton(
             icon: const Icon(
               Icons.history,
               size: 35,
@@ -51,8 +58,8 @@ class _CalculatorViewState extends State<CalculatorView> {
                     ][calculation.methodIndex!];
                     t1.text = calculation.t1 ?? "";
                     t2.text = calculation.t2 ?? "";
-                    var temp = widget.controller.calculate(dropdownValue,
-                        t1.text, t2.text, context,
+                    var temp = widget.controller.calculate(
+                        dropdownValue, t1.text, t2.text, context,
                         saveHistory: false);
                     isError = temp.$1;
                     result = temp.$2;
@@ -196,8 +203,8 @@ class _CalculatorViewState extends State<CalculatorView> {
                       return;
                     }
                     setState(() {
-                      var temp = widget.controller.calculate(dropdownValue,
-                          t1.text, t2.text, context);
+                      var temp = widget.controller
+                          .calculate(dropdownValue, t1.text, t2.text, context);
                       isError = temp.$1;
                       result = temp.$2;
                     });

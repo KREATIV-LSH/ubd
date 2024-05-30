@@ -94,7 +94,7 @@ class CalculatorController {
     }
   }
 
-  num tHalf = 4.46e10; // Halbwertszeit von u238 und u235
+  num tHalf = 4.46e10; // Halbwertszeit von u238
   num lambda238 = 1.55125; // Zerfallskonstante von u238
   num lambda235 = 9.8485; // Zerfallskonstante von u235
 
@@ -135,8 +135,7 @@ class CalculatorController {
       return (true, AppLocalizations.of(context)!.resultError, 0);
     }
 
-    num t = 1 / lambda238 * log(1 + (lead / uranium)) * 1e10;
-    print("t: $t lambda: $lambda238");
+    num t = 1 / lambda238 * log(1 + (lead / uranium)) * 1e11;
     return (
       false,
       "≈ ${formatNumber(t, context)} ${AppLocalizations.of(context)!.years}",

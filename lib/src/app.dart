@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ubd/src/calculator/calculator_controller.dart';
+import 'package:ubd/src/misc/info_view.dart';
 
 import 'calculator/calculator_view.dart';
 import 'calculator/histroy_view.dart';
@@ -75,6 +76,8 @@ class MyApp extends StatelessWidget {
                     return SettingsView(controller: settingsController);
                   case HistoryView.routeName:
                     return HistoryView(controller: calculatorController);
+                  case InfoView.routeName:
+                    return InfoView();
                   case CalculatorView.routeName:
                   default:
                     return CalculatorView(controller: calculatorController);
