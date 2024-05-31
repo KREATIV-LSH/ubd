@@ -21,7 +21,7 @@ class InfoView extends StatelessWidget {
                 const Text('Einfaches Zerfallsgesetz:',
                     style: TextStyle(
                         fontSize: textSize + 5, fontWeight: FontWeight.bold)),
-                const Text("Defenitionen:",
+                const Text("Definitionen:",
                     style: TextStyle(fontSize: textSize)),
                 Math.tex(r'T_{1/2}: \text{Halbwertszeit von } ^{238}U',
                     mathStyle: MathStyle.textCramped,
@@ -49,7 +49,7 @@ class InfoView extends StatelessWidget {
                 const Text('Erweitertes Zerfallsgesetz:',
                     style: TextStyle(
                         fontSize: textSize + 5, fontWeight: FontWeight.bold)),
-                const Text("Defenitionen:",
+                const Text("Definitionen:",
                     style: TextStyle(fontSize: textSize)),
                 Math.tex(
                     r"^{206}\mathrm{Pb}: \text{Bleiisotop } ^{206}\mathrm{Pb}, \text{ Zerfallsprodukt}",
