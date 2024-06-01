@@ -1,20 +1,28 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:ubd/src/calculator/calculator_controller.dart';
+import "package:flutter/gestures.dart";
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
+import "package:shared_preferences/shared_preferences.dart";
+import "package:ubd/src/calculator/calculator_controller.dart";
 
-import '../misc/info_view.dart';
-import 'histroy_view.dart';
-import '../settings/settings_view.dart';
+import "../misc/info_view.dart";
+import "../settings/settings_controller.dart";
+import "histroy_view.dart";
+import "../settings/settings_view.dart";
 
 class CalculatorView extends StatefulWidget {
-  const CalculatorView({Key? key, required this.controller, this.calculation})
+  const CalculatorView(
+      {Key? key,
+      required this.controller,
+      this.calculation,
+      this.settingsController})
       : super(key: key);
 
-  static const routeName = '/';
+  static const routeName = "/";
 
   final CalculatorController controller;
   final Calculation? calculation;
+  final SettingsController? settingsController;
 
   @override
   _CalculatorViewState createState() => _CalculatorViewState();
@@ -27,6 +35,63 @@ class _CalculatorViewState extends State<CalculatorView> {
 
   final TextEditingController t1 = TextEditingController();
   final TextEditingController t2 = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    checkFirstVisit();
+  }
+
+  void checkFirstVisit() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFirstVisit = prefs.getBool("isFirstVisit") ?? true;
+    if (isFirstVisit) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: RichText(
+            text: TextSpan(
+              style: Theme.of(context).brightness == Brightness.dark
+                  ? const TextStyle(color: Colors.black)
+                  : const TextStyle(color: Color.fromARGB(255, 202, 201, 201)),
+              children: <TextSpan>[
+                TextSpan(
+                    text: AppLocalizations.of(context)!.legalLocationNotice),
+                TextSpan(
+                  text: "Info",
+                  style: const TextStyle(color: Colors.blue),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      Navigator.pushNamed(context, InfoView.routeName);
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                    },
+                ),
+                TextSpan(
+                  children: <InlineSpan>[
+                    const TextSpan(text: " > "),
+                    WidgetSpan(
+                      child: Icon(
+                        Icons.description,
+                        size: 14,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.black
+                            : Colors.white,
+                      ),
+                    ),
+                    const TextSpan(text: " Legal"),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          duration: const Duration(seconds: 10),
+          showCloseIcon: true,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+
+      await prefs.setBool("isFirstVisit", false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +206,7 @@ class _CalculatorViewState extends State<CalculatorView> {
                             TextInputFormatter.withFunction(
                                 (oldValue, newValue) {
                               final text = newValue.text.replaceAll(
-                                  ',', '.'); // Replace commas with periods
+                                  ",", "."); // Replace commas with periods
                               return text.isEmpty
                                   ? newValue.copyWith(text: text)
                                   : double.tryParse(text) == null
@@ -173,7 +238,7 @@ class _CalculatorViewState extends State<CalculatorView> {
                             TextInputFormatter.withFunction(
                                 (oldValue, newValue) {
                               final text = newValue.text.replaceAll(
-                                  ',', '.'); // Replace commas with periods
+                                  ",", "."); // Replace commas with periods
                               return text.isEmpty
                                   ? newValue.copyWith(text: text)
                                   : double.tryParse(text) == null

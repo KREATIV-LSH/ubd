@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
-import 'settings_controller.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import "settings_controller.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key, required this.controller});
 
-  static const routeName = '/settings';
+  static const routeName = "/settings";
 
   final SettingsController controller;
 
@@ -26,15 +26,15 @@ class SettingsView extends StatelessWidget {
               items: const [
                 DropdownMenuItem(
                   value: ThemeMode.system,
-                  child: Text('System Theme'),
+                  child: Text("System Theme"),
                 ),
                 DropdownMenuItem(
                   value: ThemeMode.light,
-                  child: Text('Light Theme'),
+                  child: Text("Light Theme"),
                 ),
                 DropdownMenuItem(
                   value: ThemeMode.dark,
-                  child: Text('Dark Theme'),
+                  child: Text("Dark Theme"),
                 )
               ],
             ),
@@ -47,12 +47,12 @@ class SettingsView extends StatelessWidget {
               },
               items: const [
                 DropdownMenuItem(
-                  value: 'en',
-                  child: Text('English'),
+                  value: "en",
+                  child: Text("English"),
                 ),
                 DropdownMenuItem(
-                  value: 'de',
-                  child: Text('Deutsch'),
+                  value: "de",
+                  child: Text("Deutsch"),
                 ),
                 // Add more languages as needed
               ],

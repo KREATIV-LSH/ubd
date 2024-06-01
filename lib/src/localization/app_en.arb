@@ -15,5 +15,6 @@
   "resultError": "Error: Invalid input",
   "resultText": "The age of the sample is: ",
   "billion": "B",
-  "historyTitle": "History"
+  "historyTitle": "History",
+  "legalLocationNotice": "You can find the legal information in "
 }

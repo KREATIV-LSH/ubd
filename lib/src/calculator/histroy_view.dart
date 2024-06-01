@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:ubd/src/calculator/calculator_controller.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import "package:flutter/material.dart";
+import "package:ubd/src/calculator/calculator_controller.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
-import 'calculator_view.dart';
+import "calculator_view.dart";
 
 class HistoryView extends StatefulWidget {
   final CalculatorController controller;
 
   const HistoryView({Key? key, required this.controller}) : super(key: key);
 
-  static const routeName = '/history';
+  static const routeName = "/history";
 
   @override
   _HistoryViewState createState() => _HistoryViewState();

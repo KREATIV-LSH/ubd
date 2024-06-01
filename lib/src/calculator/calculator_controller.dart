@@ -1,8 +1,8 @@
-import 'dart:math';
+import "dart:math";
 
-import 'package:flutter/widgets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import "package:flutter/widgets.dart";
+import "package:flutter_gen/gen_l10n/app_localizations.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 // Object holding a calculation
 class Calculation {
@@ -24,7 +24,7 @@ class CalculatorController {
     calculations.add(calculation);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList(
-        'calculations',
+        "calculations",
         calculations
             .map((e) =>
                 "${e.methodIndex},${e.t1!},${e.t2!},${e.result!}")
@@ -33,7 +33,7 @@ class CalculatorController {
 
   Future<void> loadHistory() async {
     final prefs = await SharedPreferences.getInstance();
-    final List<String>? history = prefs.getStringList('calculations');
+    final List<String>? history = prefs.getStringList("calculations");
     if (history != null) {
       calculations = history.map((e) {
         final List<String> parts = e.split(",");
@@ -49,14 +49,14 @@ class CalculatorController {
   Future<void> clearHistory() async {
     calculations = [];
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('calculations');
+    await prefs.remove("calculations");
   }
 
   Future<void> deleteHistory(int index) async {
     calculations.removeAt(index);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList(
-        'calculations',
+        "calculations",
         calculations
             .map((e) =>
                 "${e.methodIndex},${e.t1!},${e.t2!},${e.result!}")
