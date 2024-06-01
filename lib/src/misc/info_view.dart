@@ -11,6 +11,40 @@ class InfoView extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Info'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.description, size: 35),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Legal / Impressum"),
+                      content: const Text(
+                          "© 2024 - Alle Rechte vorbehalten.\n\n"
+                          "Verantwortlicher / Kontakt:\n"
+                          "Luis Hutterli\n"
+                          "Bärenstrasse 24, 8280 Kreuzlingen, Schweiz\n"
+                          "079 874 04 48 - luis.hutterli@stud.kftg.ch\n\n"
+                          "Urheberrechtshinweis:\n"
+                          "Alle Inhalte und Werke auf dieser Website, einschließlich Quellcode, sind das Eigentum von Luis Hutterli und dürfen ohne ausdrückliche schriftliche Genehmigung nicht kopiert, modifiziert, veröffentlicht, übertragen, verteilt oder auf andere Weise verwendet werden.\n\n"
+                          "Datenschutzhinweis:\n"
+                          "Durch die Nutzung dieses Dienstes erklären Sie sich damit einverstanden, dass Ihre Nutzungsdaten möglicherweise durch uns oder Dritte gespeichert und verarbeitet werden.\nDie Verarbeiteten Daten sind anonymisiert und lassen sich nicht auf Sie zurückführen.\nMögliche Dritte: Google, Cloudflare, Firebase\n"),
+                      actions: <Widget>[
+                        IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              tooltip: "Legal",
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(
