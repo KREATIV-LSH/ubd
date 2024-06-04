@@ -131,8 +131,16 @@ class CalculatorController {
     num uranium = num.tryParse(t1!)!;
     num lead = num.tryParse(t2!)!;
 
-    if (uranium == 0 || lead == 0) {
+    if (uranium == 0 && lead == 0) {
       return (true, AppLocalizations.of(context)!.resultError, 0);
+    }
+
+    if(uranium == 0) {
+      return (true, AppLocalizations.of(context)!.resultInfinity, 0);
+    }
+
+    if(lead == 0) {
+      return (false, AppLocalizations.of(context)!.resultZero, 0);
     }
 
     num t = 1 / lambda238 * log(1 + (lead / uranium)) * 1e11;
@@ -148,8 +156,16 @@ class CalculatorController {
     num uranium = num.tryParse(t1!)!;
     num lead = num.tryParse(t2!)!;
 
-    if (uranium == 0 || lead == 0) {
+    if (uranium == 0 && lead == 0) {
       return (true, AppLocalizations.of(context)!.resultError, 0);
+    }
+
+    if(uranium == 0) {
+      return (true, AppLocalizations.of(context)!.resultInfinity, 0);
+    }
+
+    if(lead == 0) {
+      return (false, AppLocalizations.of(context)!.resultZero, 0);
     }
 
     num t = 1 / lambda235 * log(1 + (lead / uranium)) * 1e10;
