@@ -81,11 +81,14 @@ class InfoView extends StatelessWidget {
     return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("First Text Box",
+        Text("Uran Blei Datierung:",
             style:
-                TextStyle(fontSize: textSize + 5, fontWeight: FontWeight.bold)),
-        Text("This is the content of the first text box.",
-            style: TextStyle(fontSize: textSize)),
+                TextStyle(fontSize: textSize + 5, fontWeight: FontWeight.bold)), 
+        Text("Die Uran-Blei-Datierung ist eine Methode der radiometrischen Datierung, die auf dem Zerfall von Uran-Isotopen zu Blei basiert. Diese Methode ist besonders nützlich für die Bestimmung des Alters von Gesteinen und Mineralien.",
+            style: TextStyle(fontSize: textSize - 5)),
+        Text("Grundlagen der Uran-Blei-Datierung:", style: TextStyle(fontSize: textSize + 5)),
+        Text("Uran-Isotope sind instabil und zerfallen mit der Zeit zu Blei-Isotopen. Der Zerfall von Uran-Isotopen zu Blei-Isotopen erfolgt in mehreren Schritten über Zwischenprodukte wie Thorium-Isotope. Schlussendlich bleibt Blei-206 bzw. Blei-207 übrig, da diese Isotope stabil sind.",
+            style: TextStyle(fontSize: textSize - 5)),
       ],
     );
   }
@@ -123,11 +126,11 @@ class InfoView extends StatelessWidget {
                 TextStyle(fontSize: textSize + 5, fontWeight: FontWeight.bold)),
         const Text("Definitionen:", style: TextStyle(fontSize: textSize)),
         Math.tex(
-            r"^{206}\mathrm{Pb}: \text{Bleiisotop } ^{206}\mathrm{Pb}, \text{ Zerfallsprodukt}",
+            r"^{206}\mathrm{Pb}: \text{Bleiisotop}, \text{ Zerfallsprodukt}",
             mathStyle: MathStyle.textCramped,
             textStyle: const TextStyle(fontSize: mathSize)),
         Math.tex(
-            r"^{238}\mathrm U: \text{Uranisotop } ^{238}\mathrm U, \text{ Ursprungsisotop}",
+            r"^{238}\mathrm U: \text{Uranisotop}, \text{ Ursprungsisotop}",
             mathStyle: MathStyle.textCramped,
             textStyle: const TextStyle(fontSize: mathSize)),
         Math.tex(
