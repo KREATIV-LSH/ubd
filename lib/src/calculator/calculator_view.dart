@@ -175,6 +175,8 @@ class _CalculatorViewState extends State<CalculatorView> {
                       dropdownValue = newValue;
                       t1.clear();
                       t2.clear();
+                      uraniumType = "U 238";
+                      isBackward = false;
                     });
                   },
                   items: <String>[
