@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_math_fork/flutter_math.dart";
+import "package:url_launcher/url_launcher.dart";
 
 class InfoView extends StatelessWidget {
   static const routeName = "/info";
@@ -20,17 +21,34 @@ class InfoView extends StatelessWidget {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     title: const Text("Legal / Impressum"),
-                    content: const SingleChildScrollView(
-                      child: Text("© 2024 - Alle Rechte vorbehalten.\n\n"
-                          "Verantwortlicher / Kontakt:\n"
-                          "Luis Hutterli\n"
-                          "Bärenstrasse 24, 8280 Kreuzlingen, Schweiz\n"
-                          "079 874 04 48 - luis.hutterli@stud.kftg.ch\n\n"
-                          "Urheberrechtshinweis:\n"
-                          "Alle Inhalte und Werke auf dieser Website, einschließlich Quellcode, sind das Eigentum von Luis Hutterli und dürfen ohne ausdrückliche schriftliche Genehmigung nicht kopiert, modifiziert, veröffentlicht, übertragen, verteilt oder auf andere Weise verwendet werden.\n\n"
-                          "Datenschutzhinweis:\n"
-                          "Durch die Nutzung dieses Dienstes erklären Sie sich damit einverstanden, dass Ihre Nutzungsdaten möglicherweise durch uns oder Dritte gespeichert und verarbeitet werden.\nDie Verarbeiteten Daten sind anonymisiert und lassen sich nicht auf Sie zurückführen.\nIhre Einstellungen und Präferenzen werden nur lokal auf Ihrem Gerät gespeichert.\nMögliche Dritte: Google, Cloudflare, Firebase\n"),
-                    ), // Add this
+                    content: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("© 2024 - Alle Rechte vorbehalten.\n\n"
+                              "Verantwortlicher / Kontakt:\n"
+                              "Luis Hutterli\n"
+                              "Bärenstrasse 24, 8280 Kreuzlingen, Schweiz\n"
+                              "079 874 04 48 - luis.hutterli@stud.kftg.ch\n\n"
+                              "Urheberrechtshinweis:\n"
+                              "Alle Inhalte und Werke auf dieser Website, einschließlich Quellcode, sind das Eigentum von Luis Hutterli und dürfen ohne ausdrückliche schriftliche Genehmigung nicht kopiert, modifiziert, veröffentlicht, übertragen, verteilt oder auf andere Weise verwendet werden.\n\n"
+                              "Datenschutzhinweis:\n"
+                              "Durch die Nutzung dieses Dienstes erklären Sie sich damit einverstanden, dass Ihre Nutzungsdaten möglicherweise durch uns oder Dritte gespeichert und verarbeitet werden.\nDie Verarbeiteten Daten sind anonymisiert und lassen sich nicht auf Sie zurückführen.\nIhre Einstellungen und Präferenzen werden nur lokal auf Ihrem Gerät gespeichert.\nMögliche Dritte: Google, Cloudflare, Firebase\n"),
+                          TextButton(
+                              onPressed: () async {
+                                const url = 'https://datierung.ch/media/Datenschutz_06.06.24.pdf';
+                                if (await canLaunch(url)) {
+                                  await launch(url);
+                                } else {
+                                  throw 'Could not launch $url';
+                                }
+                              },
+                              child: const Text(
+                                "Datenschutz_06.06.24.pdf",
+                              ))
+                        ],
+                      ),
+                    ),
                     actions: <Widget>[
                       IconButton(
                         icon: const Icon(Icons.close),
@@ -83,11 +101,14 @@ class InfoView extends StatelessWidget {
       children: [
         Text("Uran Blei Datierung:",
             style:
-                TextStyle(fontSize: textSize + 5, fontWeight: FontWeight.bold)), 
-        Text("Die Uran-Blei-Datierung ist eine Methode der radiometrischen Datierung, die auf dem Zerfall von Uran-Isotopen zu Blei basiert. Diese Methode ist besonders nützlich für die Bestimmung des Alters von Gesteinen und Mineralien.",
+                TextStyle(fontSize: textSize + 5, fontWeight: FontWeight.bold)),
+        Text(
+            "Die Uran-Blei-Datierung ist eine Methode der radiometrischen Datierung, die auf dem Zerfall von Uran-Isotopen zu Blei basiert. Diese Methode ist besonders nützlich für die Bestimmung des Alters von Gesteinen und Mineralien.",
             style: TextStyle(fontSize: textSize - 5)),
-        Text("Grundlagen der Uran-Blei-Datierung:", style: TextStyle(fontSize: textSize + 5)),
-        Text("Uran-Isotope sind instabil und zerfallen mit der Zeit zu Blei-Isotopen. Der Zerfall von Uran-Isotopen zu Blei-Isotopen erfolgt in mehreren Schritten über Zwischenprodukte wie Thorium-Isotope. Schlussendlich bleibt Blei-206 bzw. Blei-207 übrig, da diese Isotope stabil sind.",
+        Text("Grundlagen der Uran-Blei-Datierung:",
+            style: TextStyle(fontSize: textSize + 5)),
+        Text(
+            "Uran-Isotope sind instabil und zerfallen mit der Zeit zu Blei-Isotopen. Der Zerfall von Uran-Isotopen zu Blei-Isotopen erfolgt in mehreren Schritten über Zwischenprodukte wie Thorium-Isotope. Schlussendlich bleibt Blei-206 bzw. Blei-207 übrig, da diese Isotope stabil sind.",
             style: TextStyle(fontSize: textSize - 5)),
       ],
     );
@@ -129,8 +150,7 @@ class InfoView extends StatelessWidget {
             r"^{206}\mathrm{Pb}: \text{Bleiisotop}, \text{ Zerfallsprodukt}",
             mathStyle: MathStyle.textCramped,
             textStyle: const TextStyle(fontSize: mathSize)),
-        Math.tex(
-            r"^{238}\mathrm U: \text{Uranisotop}, \text{ Ursprungsisotop}",
+        Math.tex(r"^{238}\mathrm U: \text{Uranisotop}, \text{ Ursprungsisotop}",
             mathStyle: MathStyle.textCramped,
             textStyle: const TextStyle(fontSize: mathSize)),
         Math.tex(
