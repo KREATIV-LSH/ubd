@@ -16,5 +16,25 @@
   "resultText": "The age of the sample is: ",
   "billion": "B",
   "historyTitle": "History",
-  "legalLocationNotice": "You can find the legal information in "
+  "legalLocationNotice": "You can find the legal information in ",
+  "calculateBackwards": "Calculate Backwards",
+
+  "infoTitle": "What is Uranium-Lead Dating?",
+  "infoDetails": "Uranium-Lead dating is a method of radiometric dating based on the decay of uranium isotopes to lead. This method is particularly useful for determining the age of rocks and minerals.",
+  "basicsTitle": "Basics of Uranium-Lead Dating:",
+  "basicsDetails": "Uranium isotopes are unstable and decay over time to lead isotopes. The decay of uranium isotopes to lead isotopes occurs in several steps through intermediates such as thorium isotopes. Ultimately, lead-206 and lead-207 remain, as these isotopes are stable.",
+
+  "simpleDecay": "Simple Decay Law:",
+  "definitions": "Definitions:",
+  "halflife": "'T_{1/2}: \\text{Half-life of } {238}U'",
+  "initialUraniumAmount": "'N_u(0): \\text{Number of } {238}U\\text{ at time 0}'",
+  "currentUraniumAmount": "'N_u(t): \\text{Number of } {238}U\\text{ at time t}'",
+  "formula": "Formula:",
+  "transformationToT": "Solving for t:",
+
+  "advancedDecay": "Advanced Decay Law:",
+  "leadIsotope": "'^{206}\\mathrm{Pb}: \\text{Lead isotope}, \\text{ decay product}'",
+  "uraniumIsotope": "'^{238}\\mathrm{U}: \\text{Uranium isotope}, \\text{ parent isotope}'",
+  "decayConstant": "'\\lambda_{238}: \\text{Decay constant of } ^{238}\\mathrm{U}'",
+  "isotopeInfo": "The isotopes shown here are from the uranium-radium decay series (238U -> 206Pb), but the same formulas, with a different half-live/decay constant, also apply to the uranium-actinium decay series (235U -> 207Pb)."
 }

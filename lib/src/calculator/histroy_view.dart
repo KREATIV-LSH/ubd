@@ -2,8 +2,6 @@ import "package:flutter/material.dart";
 import "package:ubd/src/calculator/calculator_controller.dart";
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
-import "calculator_view.dart";
-
 class HistoryView extends StatefulWidget {
   final CalculatorController controller;
 

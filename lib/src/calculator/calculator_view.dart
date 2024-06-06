@@ -30,8 +30,10 @@ class CalculatorView extends StatefulWidget {
 
 class _CalculatorViewState extends State<CalculatorView> {
   String? dropdownValue;
+  String uraniumType = "U 238";
   String result = "";
   bool isError = false;
+  bool isBackward = false;
 
   final TextEditingController t1 = TextEditingController();
   final TextEditingController t2 = TextEditingController();
@@ -123,8 +125,15 @@ class _CalculatorViewState extends State<CalculatorView> {
                     ][calculation.methodIndex!];
                     t1.text = calculation.t1 ?? "";
                     t2.text = calculation.t2 ?? "";
+                    uraniumType = calculation.isU235 ?? false ? "U 235" : "U 238";
+                    isBackward = calculation.isBackward ?? false;
                     var temp = widget.controller.calculate(
-                        dropdownValue, t1.text, t2.text, context,
+                        dropdownValue,
+                        t1.text,
+                        t2.text,
+                        calculation.isU235 ?? false,
+                        isBackward,
+                        context,
                         saveHistory: false);
                     isError = temp.$1;
                     result = temp.$2;
@@ -153,27 +162,85 @@ class _CalculatorViewState extends State<CalculatorView> {
               style: const TextStyle(fontSize: 25),
             ),
           ),
-          DropdownButton<String>(
-            value: dropdownValue,
-            hint: Text(AppLocalizations.of(context)!.methodHint,
-                style: const TextStyle(fontSize: 20)),
-            onChanged: (String? newValue) {
-              setState(() {
-                dropdownValue = newValue;
-                t1.clear();
-                t2.clear();
-              });
-            },
-            items: <String>[
-              AppLocalizations.of(context)!.uraniumPercentageMethod,
-              "U-Radium, 238U -> 206Pb",
-              "U-Actinum, 235U -> 207Pb",
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value, style: const TextStyle(fontSize: 20)),
-              );
-            }).toList(),
+          Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                DropdownButton<String>(
+                  value: dropdownValue,
+                  hint: Text(AppLocalizations.of(context)!.methodHint,
+                      style: const TextStyle(fontSize: 20)),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownValue = newValue;
+                      t1.clear();
+                      t2.clear();
+                    });
+                  },
+                  items: <String>[
+                    AppLocalizations.of(context)!.uraniumPercentageMethod,
+                    "U-Radium, 238U -> 206Pb",
+                    "U-Actinum, 235U -> 207Pb",
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value, style: const TextStyle(fontSize: 20)),
+                    );
+                  }).toList(),
+                ),
+                Visibility(
+                  visible: dropdownValue ==
+                      AppLocalizations.of(context)!.uraniumPercentageMethod,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: DropdownButton<String>(
+                          value: uraniumType,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              uraniumType = newValue!;
+                            });
+                          },
+                          items: <String>[
+                            "U 238",
+                            "U 235",
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value,
+                                  style: const TextStyle(fontSize: 20)),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      Tooltip(
+                        message:
+                            AppLocalizations.of(context)!.calculateBackwards,
+                        child: Column(
+                          children: [
+                            const Row(
+                              children: [
+                                Icon(Icons.calculate),
+                                Icon(Icons.undo),
+                              ],
+                            ),
+                            Switch(
+                              value: isBackward,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  isBackward = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(
@@ -188,7 +255,7 @@ class _CalculatorViewState extends State<CalculatorView> {
                           controller: t1,
                           enabled: dropdownValue != null,
                           decoration: InputDecoration(
-                            labelText: AppLocalizations.of(context)!
+                            labelText: isBackward ? AppLocalizations.of(context)!.resultText : AppLocalizations.of(context)!
                                     .uraniumConcentration +
                                 (dropdownValue ==
                                         AppLocalizations.of(context)!
@@ -268,8 +335,9 @@ class _CalculatorViewState extends State<CalculatorView> {
                       return;
                     }
                     setState(() {
-                      var temp = widget.controller
-                          .calculate(dropdownValue, t1.text, t2.text, context);
+                      bool isU235 = uraniumType == "U 235";
+                      var temp = widget.controller.calculate(dropdownValue,
+                          t1.text, t2.text, isU235, isBackward, context);
                       isError = temp.$1;
                       result = temp.$2;
                     });

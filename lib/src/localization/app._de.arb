@@ -16,6 +16,26 @@
     "resultText": "Das Alter der Probe beträgt: ",
     "billion": "Mrd.",
     "historyTitle": "Verlauf",
-    "legalLocationNotice": "Datenschutz & Impressum unter "
+    "legalLocationNotice": "Datenschutz & Impressum unter ",
+    "calculateBackwards": "Retour rechnen",
+
+    "infoTitle": "Was ist die Uran-Blei-Datierung?",
+    "infoDetails": "Die Uran-Blei-Datierung ist eine Methode der radiometrischen Datierung, die auf dem Zerfall von Uran-Isotopen zu Blei basiert. Diese Methode ist besonders nützlich für die Bestimmung des Alters von Gesteinen und Mineralien.",
+    "basicsTitle": "Grundlagen der Uran-Blei-Datierung:",
+    "basicsDetails": "Uran-Isotope sind instabil und zerfallen mit der Zeit zu Blei-Isotopen. Der Zerfall von Uran-Isotopen zu Blei-Isotopen erfolgt in mehreren Schritten über Zwischenprodukte wie Thorium-Isotope. Schlussendlich bleibt Blei-206 bzw. Blei-207 übrig, da diese Isotope stabil sind.",
+
+    "simpleDecay": "Einfaches Zerfallsgesetz:",
+    "definitions": "Definitionen:",
+    "halflife": "'T_{1/2}: \\text{Halbwertszeit von } {238}U'",
+    "initialUraniumAmount": "'N_u(0): \\text{Anzahl } {238}U\\text{ zum Zeitpunkt 0}'",
+    "currentUraniumAmount": "'N_u(t): \\text{Anzahl } {238}U\\text{ zum Zeitpunkt t}'",
+    "formula": "Formel:",
+    "transformationToT": "Umformung nach t:",
+
+    "advancedDecay": "Erweitertes Zerfallsgesetz:",
+    "leadIsotope": "'^{206}\\mathrm{Pb}: \\text{Bleiisotop}, \\text{ Zerfallsprodukt}'",
+    "uraniumIsotope": "'^{238}\\mathrm{U}: \\text{Uranisotop}, \\text{ Ursprungsisotop}'",
+    "decayConstant": "'\\lambda_{238}: \\text{Zerfallskonstante von } ^{238}\\mathrm U'",
+    "isotopeInfo": "Die hier gezeigten Isotope sind aus der Uran-Radium Zerfallsreihe (238U -> 206Pb), jedoch gelten die gleichen Formeln, mit einer anderen Halbwertszeit/ Zerfallskonstante, auch für die Uran-Actinum Zerfallsreihe (235U -> 207Pb)."
   }
   

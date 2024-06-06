@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+**Correct display of u235 and backwards in history**
+
 **Scaling on mobile** (everything is to large)
 **History on mobile**
 
