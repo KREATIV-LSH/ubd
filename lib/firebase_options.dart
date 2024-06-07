@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'ubd-rechner.appspot.com',
     measurementId: 'G-ZK186NPTR9',
   );
+
 }
