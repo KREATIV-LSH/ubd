@@ -1,10 +1,1 @@
-{
-  "hosting": {
-    "public": "build/web",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
-  }
-}
+{"hosting":{"public":"build/web","ignore":["firebase.json","**/.*","**/node_modules/**"]},"flutter":{"platforms":{"android":{"default":{"projectId":"ubd-rechner","appId":"1:374731504843:android:7166c2676900b503ee6f4e","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"ubd-rechner","configurations":{"android":"1:374731504843:android:7166c2676900b503ee6f4e","ios":"1:374731504843:ios:499eb85409403883ee6f4e","macos":"1:374731504843:ios:499eb85409403883ee6f4e","web":"1:374731504843:web:7c5bd1c16f15a9ecee6f4e","windows":"1:374731504843:web:429426fd7458242fee6f4e"}}}}}}

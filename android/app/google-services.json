@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "374731504843",
+    "project_id": "ubd-rechner",
+    "storage_bucket": "ubd-rechner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374731504843:android:7166c2676900b503ee6f4e",
+        "android_client_info": {
+          "package_name": "ch.lsh.ubd"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhQ6JFdYaKC7BGczz8VGf4dPwqPGuGuGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
