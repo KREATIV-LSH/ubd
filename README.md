@@ -1,55 +1,10 @@
-# ubd
+# UBD - Uran Blei Datierung
 
-A new Flutter project.
+Ein Schulprojekt zur Umsetzung eines Projektes.
 
-**Correct display of u235 and backwards in history**
-**u235 and backwards inputs not scaled good on mobile**
+# Deployment
+- https://datierung.ch/
+- https://backup.datierung.ch/
 
-**Scaling on mobile** (everything is to large)
-**History on mobile**
-
-delete button apears on hover (what about mobile?)
-
-**Negativ Inputs** (general input checking)
-history
-retour rechnen
-clear field on method change
-calculate on enter (or done button on mobile)
-copy button for results
-
-error on windows native (check screenshots)
-
-change back browser cache ttl on cloudflare
-
-make it clear what inputs are wanted
-
-
-## Feedback
-- Grössere Schrift
-- Mehr Text (Uran Anteil in Prozent:, Berrechnetes Alter der Probe ...)
-- Mehr Desing
-
-## Getting Started
-
-This project is a starting point for a Flutter application that follows the
-[simple app state management tutorial](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple).
-
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-## Assets
-
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
-
-The `assets/images` directory contains [resolution-awareimages](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
-
-## Localization
-
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
-
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter
-apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
+## 
+Von Renato und Luis, KFTG 1i
