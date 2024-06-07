@@ -110,6 +110,8 @@ class InfoView extends StatelessWidget {
             style: const TextStyle(fontSize: textSize + 5)),
         Text(AppLocalizations.of(context)!.basicsDetails,
             style: const TextStyle(fontSize: textSize - 5)),
+        Text("\n${AppLocalizations.of(context)!.credits}",
+            style: const TextStyle(fontSize: textSize, fontStyle: FontStyle.italic)),
       ],
     );
   }

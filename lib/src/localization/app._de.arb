@@ -36,6 +36,8 @@
     "leadIsotope": "'^{206}\\mathrm{Pb}: \\text{Bleiisotop}, \\text{ Zerfallsprodukt}'",
     "uraniumIsotope": "'^{238}\\mathrm{U}: \\text{Uranisotop}, \\text{ Ursprungsisotop}'",
     "decayConstant": "'\\lambda_{238}: \\text{Zerfallskonstante von } ^{238}\\mathrm U'",
-    "isotopeInfo": "Die hier gezeigten Isotope sind aus der Uran-Radium Zerfallsreihe (238U -> 206Pb), jedoch gelten die gleichen Formeln, mit einer anderen Halbwertszeit/ Zerfallskonstante, auch für die Uran-Actinum Zerfallsreihe (235U -> 207Pb)."
+    "isotopeInfo": "Die hier gezeigten Isotope sind aus der Uran-Radium Zerfallsreihe (238U -> 206Pb), jedoch gelten die gleichen Formeln, mit einer anderen Halbwertszeit/ Zerfallskonstante, auch für die Uran-Actinum Zerfallsreihe (235U -> 207Pb).",
+
+    "credits": "Ein Schulprojekt von: Renato & Luis"
   }
   

@@ -36,5 +36,7 @@
   "leadIsotope": "'^{206}\\mathrm{Pb}: \\text{Lead isotope}, \\text{ decay product}'",
   "uraniumIsotope": "'^{238}\\mathrm{U}: \\text{Uranium isotope}, \\text{ parent isotope}'",
   "decayConstant": "'\\lambda_{238}: \\text{Decay constant of } ^{238}\\mathrm{U}'",
-  "isotopeInfo": "The isotopes shown here are from the uranium-radium decay series (238U -> 206Pb), but the same formulas, with a different half-live/decay constant, also apply to the uranium-actinium decay series (235U -> 207Pb)."
+  "isotopeInfo": "The isotopes shown here are from the uranium-radium decay series (238U -> 206Pb), but the same formulas, with a different half-live/decay constant, also apply to the uranium-actinium decay series (235U -> 207Pb).",
+
+  "credits": "A school project by Renato & Luis"
 }
