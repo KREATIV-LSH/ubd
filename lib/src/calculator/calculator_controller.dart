@@ -104,7 +104,7 @@ class CalculatorController {
   num lambda235 = 9.8485; // Zerfallskonstante von u235
 
   // Calculation
-(bool, String) calculate(String? method, String? t1, String? t2, bool? isU235, bool? isBackward, BuildContext context, {bool saveHistory = true}) {
+  (bool, String) calculate(String? method, String? t1, String? t2, bool? isU235, bool? isBackward, BuildContext context, {bool saveHistory = true}) {
     bool isError = false;
     String msg = "";
     num t = 0;

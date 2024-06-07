@@ -74,6 +74,8 @@ class _CalculatorViewState extends State<CalculatorView> {
         visible: dropdownValue ==
             AppLocalizations.of(context)!.uraniumPercentageMethod,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
