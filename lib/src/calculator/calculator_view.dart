@@ -44,6 +44,84 @@ class _CalculatorViewState extends State<CalculatorView> {
     checkFirstVisit();
   }
 
+  List<Widget> _buildChildren(BuildContext context) {
+    return [
+      DropdownButton<String>(
+        value: dropdownValue,
+        hint: Text(AppLocalizations.of(context)!.methodHint,
+            style: const TextStyle(fontSize: 20)),
+        onChanged: (String? newValue) {
+          setState(() {
+            dropdownValue = newValue;
+            t1.clear();
+            t2.clear();
+            uraniumType = "U 238";
+            isBackward = false;
+          });
+        },
+        items: <String>[
+          AppLocalizations.of(context)!.uraniumPercentageMethod,
+          "U-Radium, 238U -> 206Pb",
+          "U-Actinum, 235U -> 207Pb",
+        ].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value, style: const TextStyle(fontSize: 20)),
+          );
+        }).toList(),
+      ),
+      Visibility(
+        visible: dropdownValue ==
+            AppLocalizations.of(context)!.uraniumPercentageMethod,
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: DropdownButton<String>(
+                value: uraniumType,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    uraniumType = newValue!;
+                  });
+                },
+                items: <String>[
+                  "U 238",
+                  "U 235",
+                ].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value, style: const TextStyle(fontSize: 20)),
+                  );
+                }).toList(),
+              ),
+            ),
+            Tooltip(
+              message: AppLocalizations.of(context)!.calculateBackwards,
+              child: Column(
+                children: [
+                  const Row(
+                    children: [
+                      Icon(Icons.calculate),
+                      Icon(Icons.undo),
+                    ],
+                  ),
+                  Switch(
+                    value: isBackward,
+                    onChanged: (bool value) {
+                      setState(() {
+                        isBackward = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    ];
+  }
+
   void checkFirstVisit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isFirstVisit = prefs.getBool("isFirstVisit") ?? true;
@@ -125,7 +203,8 @@ class _CalculatorViewState extends State<CalculatorView> {
                     ][calculation.methodIndex!];
                     t1.text = calculation.t1 ?? "";
                     t2.text = calculation.t2 ?? "";
-                    uraniumType = calculation.isU235 ?? false ? "U 235" : "U 238";
+                    uraniumType =
+                        calculation.isU235 ?? false ? "U 235" : "U 238";
                     isBackward = calculation.isBackward ?? false;
                     var temp = widget.controller.calculate(
                         dropdownValue,
@@ -163,85 +242,23 @@ class _CalculatorViewState extends State<CalculatorView> {
             ),
           ),
           Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DropdownButton<String>(
-                  value: dropdownValue,
-                  hint: Text(AppLocalizations.of(context)!.methodHint,
-                      style: const TextStyle(fontSize: 20)),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownValue = newValue;
-                      t1.clear();
-                      t2.clear();
-                      uraniumType = "U 238";
-                      isBackward = false;
-                    });
-                  },
-                  items: <String>[
-                    AppLocalizations.of(context)!.uraniumPercentageMethod,
-                    "U-Radium, 238U -> 206Pb",
-                    "U-Actinum, 235U -> 207Pb",
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value, style: const TextStyle(fontSize: 20)),
-                    );
-                  }).toList(),
-                ),
-                Visibility(
-                  visible: dropdownValue ==
-                      AppLocalizations.of(context)!.uraniumPercentageMethod,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: DropdownButton<String>(
-                          value: uraniumType,
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              uraniumType = newValue!;
-                            });
-                          },
-                          items: <String>[
-                            "U 238",
-                            "U 235",
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value,
-                                  style: const TextStyle(fontSize: 20)),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                      Tooltip(
-                        message:
-                            AppLocalizations.of(context)!.calculateBackwards,
-                        child: Column(
-                          children: [
-                            const Row(
-                              children: [
-                                Icon(Icons.calculate),
-                                Icon(Icons.undo),
-                              ],
-                            ),
-                            Switch(
-                              value: isBackward,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  isBackward = value;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                if (constraints.maxWidth < 450) {
+                  return Center(
+                    child: Column(
+                      children: _buildChildren(context),
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: _buildChildren(context),
+                    ),
+                  );
+                }
+              },
             ),
           ),
           Padding(
@@ -257,13 +274,15 @@ class _CalculatorViewState extends State<CalculatorView> {
                           controller: t1,
                           enabled: dropdownValue != null,
                           decoration: InputDecoration(
-                            labelText: isBackward ? AppLocalizations.of(context)!.resultText : AppLocalizations.of(context)!
-                                    .uraniumConcentration +
-                                (dropdownValue ==
-                                        AppLocalizations.of(context)!
-                                            .uraniumPercentageMethod
-                                    ? " in %"
-                                    : ""),
+                            labelText: isBackward
+                                ? AppLocalizations.of(context)!.resultText
+                                : AppLocalizations.of(context)!
+                                        .uraniumConcentration +
+                                    (dropdownValue ==
+                                            AppLocalizations.of(context)!
+                                                .uraniumPercentageMethod
+                                        ? " in %"
+                                        : ""),
                             labelStyle: const TextStyle(fontSize: 20),
                           ),
                           style: const TextStyle(fontSize: 20),

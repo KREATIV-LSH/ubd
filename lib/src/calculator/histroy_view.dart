@@ -35,11 +35,15 @@ class _HistoryViewState extends State<HistoryView> {
           final Calculation calculation = widget.controller.calculations[index];
           String subtitle = "";
           String result =
-              "${widget.controller.formatNumber(calculation.result!, context)} ${AppLocalizations.of(context)!.years}";
+              widget.controller.formatNumber(calculation.result!, context);
           if (calculation.methodIndex == 0) {
-            subtitle = "${calculation.t1!}%: $result";
+            if (calculation.isBackward!) {
+              subtitle = "${calculation.t1!} ${AppLocalizations.of(context)!.years}: $result%";
+            } else {
+              subtitle = "${calculation.t1!}%: $result";
+            }
           } else {
-            subtitle = "${calculation.t1!}, ${calculation.t2!}: $result";
+            subtitle = "${calculation.t1!}, ${calculation.t2!}: $result${AppLocalizations.of(context)!.years}";
           }
           final isHovered = ValueNotifier<bool>(false);
 

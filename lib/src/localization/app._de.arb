@@ -26,9 +26,9 @@
 
     "simpleDecay": "Einfaches Zerfallsgesetz:",
     "definitions": "Definitionen:",
-    "halflife": "'T_{1/2}: \\text{Halbwertszeit von } {238}U'",
-    "initialUraniumAmount": "'N_u(0): \\text{Anzahl } {238}U\\text{ zum Zeitpunkt 0}'",
-    "currentUraniumAmount": "'N_u(t): \\text{Anzahl } {238}U\\text{ zum Zeitpunkt t}'",
+    "halflife": "'T_{1/2}: \\text{Halbwertszeit von } ^{238}U'",
+    "initialUraniumAmount": "'N_u(0): \\text{Anzahl } ^{238}U\\text{ zum Zeitpunkt 0}'",
+    "currentUraniumAmount": "'N_u(t): \\text{Anzahl } ^{238}U\\text{ zum Zeitpunkt t}'",
     "formula": "Formel:",
     "transformationToT": "Umformung nach t:",
 

@@ -26,9 +26,9 @@
 
   "simpleDecay": "Simple Decay Law:",
   "definitions": "Definitions:",
-  "halflife": "'T_{1/2}: \\text{Half-life of } {238}U'",
-  "initialUraniumAmount": "'N_u(0): \\text{Number of } {238}U\\text{ at time 0}'",
-  "currentUraniumAmount": "'N_u(t): \\text{Number of } {238}U\\text{ at time t}'",
+  "halflife": "'T_{1/2}: \\text{Half-life of } ^{238}U'",
+  "initialUraniumAmount": "'N_u(0): \\text{Number of } ^{238}U\\text{ at time 0}'",
+  "currentUraniumAmount": "'N_u(t): \\text{Number of } ^{238}U\\text{ at time t}'",
   "formula": "Formula:",
   "transformationToT": "Solving for t:",
 
