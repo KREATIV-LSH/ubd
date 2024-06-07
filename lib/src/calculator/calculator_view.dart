@@ -379,11 +379,7 @@ class _CalculatorViewState extends State<CalculatorView> {
               children: [
                 Flexible(
                   child: Text(
-                    result.isEmpty
-                        ? ""
-                        : isError
-                            ? result
-                            : AppLocalizations.of(context)!.resultText + result,
+                    result.isEmpty ? "" : isError ? result : result.contains('%') ? "${AppLocalizations.of(context)!.uraniumConcentration}: $result" : AppLocalizations.of(context)!.resultText + result,
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,

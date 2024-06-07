@@ -220,10 +220,6 @@ class CalculatorController {
       return (true, AppLocalizations.of(context)!.resultError, 0);
     }
 
-    if (t < 0.00001) {
-      return (false, AppLocalizations.of(context)!.resultInfinity, 0);
-    }
-
     num tHalf = isU235! ? tHalf235 : tHalf238;
     num uraniumPercentage = 100 * pow(2, -t * 10 / tHalf);
     return (
